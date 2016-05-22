@@ -1,2 +1,2 @@
 
-# \/\/[- ()\/\/|\| "|"|-|[- |\||[,|-|"|" [:milky_way:](http://weownthenight.disktree.net/)
+# \/\/[- ()\/\/|\| "|"|-|[- |\||"|"[- [:milky_way:](http://weownthenite.org)
