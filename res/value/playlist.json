@@ -1,50 +1,60 @@
 {
 	"playlist":[
-
 		{
-			"id": "SRGapYmBK2E"
+			"id": "SRGapYmBK2E",
+			"filter": "brightness(500%) contrast(500%) grayscale(100%)"
 		},
 		{
-			"id": "VT05MfHu4RY"
+			"id": "VT05MfHu4RY",
+			"filter": "brightness(500%) contrast(500%) grayscale(100%)"
 		},
 		{
-			"id": "mQFamAC0qpw"
-		},
-
-
-
-		{
-			"id": "n5CVl5CGqHo"
+			"id": "mQFamAC0qpw",
+			"filter": "brightness(500%) contrast(500%) grayscale(100%)"
 		},
 		{
-			"id": "GTrOzwGDtJk"
+			"id": "n5CVl5CGqHo",
+			"filter": "brightness(500%) contrast(500%) grayscale(100%)"
 		},
 		{
-			"id": "MlTEhX_eh1Y"
+			"id": "GTrOzwGDtJk",
+			"filter": "brightness(500%) contrast(500%) grayscale(100%)"
 		},
 		{
-			"id": "t_5Qtll7Lbs"
+			"id": "MlTEhX_eh1Y",
+			"filter": "brightness(500%) contrast(500%) grayscale(100%)"
 		},
 		{
-			"id": "WRzblH37oNU"
+			"id": "t_5Qtll7Lbs",
+			"filter": "brightness(500%) contrast(500%) grayscale(100%)"
 		},
 		{
-			"id": "gOgOAaxQ8Og"
+			"id": "WRzblH37oNU",
+			"filter": "brightness(500%) contrast(500%) grayscale(100%)"
 		},
 		{
-			"id": "2nCpWZj-Z8s"
+			"id": "gOgOAaxQ8Og",
+			"filter": "brightness(500%) contrast(500%) grayscale(100%)"
 		},
 		{
-			"id": "4AXxtLGpEVU"
+			"id": "2nCpWZj-Z8s",
+			"filter": "brightness(500%) contrast(500%) grayscale(100%)"
 		},
 		{
-			"id": "9vlVE3wg9JY"
+			"id": "4AXxtLGpEVU",
+			"filter": "brightness(500%) contrast(500%) grayscale(100%)"
 		},
 		{
-			"id": "N_PhIP5T_pk"
+			"id": "9vlVE3wg9JY",
+			"filter": "brightness(500%) contrast(500%) grayscale(100%)"
 		},
 		{
-			"id": "jotE6c61e_A"
+			"id": "jotE6c61e_A",
+			"filter": "brightness(500%) contrast(500%) grayscale(100%)"
+		},
+		{
+			"id": "IctJT7exj30",
+			"filter": "brightness(500%) contrast(500%) grayscale(100%)"
 		}
 	]
 }

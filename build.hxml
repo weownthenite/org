@@ -1,12 +1,8 @@
--js web/wotn.js
+-js out/wotn.js
 -main wotn.App
 -cp src
--cp ../../lib/om.api/src
--cp ../../lib/om.audio/src
--cp ../../lib/om.core/src
--cp ../../lib/om.io/src
--lib om
+-lib om.api
+-lib om.io
 -dce full
 -debug
--D less-include-path=/home/tong/dev/lib/om.style/res/style
 --macro wotn.Build.app()

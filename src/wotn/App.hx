@@ -1,223 +1,159 @@
 package wotn;
 
+import js.Browser.console;
 import js.Browser.document;
 import js.Browser.window;
-import js.html.ImageElement;
 import js.html.DivElement;
-import om.api.YouTube;
-import om.api.YouTubePlayer;
+import js.html.ImageElement;
 import haxe.Json;
+import om.api.youtube.YouTube;
+import om.api.youtube.YouTubePlayer;
 
-using om.util.ArrayUtil;
-
-typedef Video = {
+typedef PlaylistItem = {
 	var id : String;
-	var filter : String;
+	@:optional var filter : String;
 }
 
 class App {
 
 	static inline var PLAYLIST_URL = 'playlist.json';
 
-	static var title : ImageElement;
-	static var player : YouTubePlayer;
+	static var playlist : Array<PlaylistItem>;
+	static var index = 0;
+	static var started = false;
+
+	static var video : VideoPlayer;
 	static var overlay : DivElement;
+	static var title : ImageElement;
 
-	static var playlist: Array<Video>;
-	static var playlistIndex = 0;
-	static var isPlaying = false;
+	static function loadNextVideo( increaseIndex = true ) {
+		if( increaseIndex ) index++;
+		if( index == playlist.length ) index = 0;
+		var videoId = playlist[index].id;
+		trace( 'Loading video[$index][$videoId]' );
+		video.load( videoId );
+	}
 
-	static function handlePlayerReady(e) {
-		player.setPlaybackQuality( highres );
-		player.playVideo();
-    }
+	static function applyVideoFilter( filter = "" ) {
+		untyped video.element.style.mozFilter =
+		untyped video.element.style.webkitFilter = filter;
+	}
 
-    static function handlePlayerStateChange(e) {
-		var titleBlendmode = 'none';
-        switch e.data {
-        case unstarted:
-        case ended:
-			isPlaying = false;
-			loadNextVideo();
-			overlay.style.opacity = '1';
-	//		playerContainer.style.opacity = '0';
-        case playing:
-			player.c.style.opacity = '1';
-			isPlaying = true;
-            //playerOverlay.style.opacity = '0';
-            //onEvent( 'playing' );
+	static function resize() {
+
+		var dx = window.screen.width - window.innerWidth;
+		var dy = window.screen.height - window.innerHeight;
+
+		video.element.style.width = window.innerWidth+'px';
+		video.element.style.height = window.innerHeight+'px';
+
+		video.element.style.left = -Std.int(dx/2)+'px';
+		video.element.style.top = -Std.int(dy/2)+'px';
+	}
+
+	static function handleVideoPlayerEvent(e) {
+		switch e {
+		case 'play':
+			applyVideoFilter( playlist[index].filter );
 			overlay.style.opacity = '0';
-	//		playerContainer.style.opacity = '1';
-			titleBlendmode = 'overlay';
-			//untyped player.c.style.webkitFilter = 'invert(100%)';
-        case paused:
-        case buffering:
-        case video_cued:
-        }
-		untyped title.style.mixBlendMode = titleBlendmode;
-    }
-
-    static function handlePlaybackQualityChange(e) {
-        trace(e);
-    }
-
-    static function handlePlaybackRateChange(e) {
-        trace(e);
-    }
-
-    static function handlePlayerError(e) {
-        trace(e);
-    }
-
-    static function handlePlayerAPIChange(e) {
-        trace(e);
-    }
-
-	static function handleClick() {
-		loadNextVideo();
-	}
-
-	static function loadNextVideo() {
-		if( playlistIndex++ == playlist.length )
-			playlistIndex = 0;
-		player.c.style.opacity = '0';
-		overlay.style.opacity = '1';
-		player.loadVideoById( playlist[playlistIndex].id );
-	}
-
-	static function setPlayerSize( ?w : Int, ?h : Int ) {
-		if( w == null ) w = window.innerWidth;
-		if( h == null ) h = window.innerHeight;
-		player.c.style.width = w+'px';
-		player.c.style.height = h+'px';
-		player.setSize( w, h );
-	}
-
-	static function toggleFullscreen() {
-		if( document.fullscreenElement == null ) {
-			untyped document.body.webkitRequestFullscreen();
-		} else {
-			untyped document.webkitExitFullscreen();
+		//case 'stop':
+		case 'end':
+			applyVideoFilter( playlist[index].filter );
+			overlay.style.opacity = '1';
+			//overlay.style.opacity = 'block';
+			loadNextVideo();
+		default:
+			overlay.style.opacity = '1';
+			//overlay.style.opacity = 'block';
 		}
 	}
 
-	static function update( time : Float ) {
-		window.requestAnimationFrame( update );
-	}
-
-	static function handleYouTubeReady() {
-
-		document.getElementById( 'loader' ).remove();
-
-		var width = window.innerWidth;
-		var height = window.innerHeight;
-
-		var player = App.player = new YouTubePlayer( 'videoplayer',
-			{
-				width: '$width',
-				height: '$height',
-				videoId: playlist[playlistIndex].id,
-				playerVars: {
-					autoplay: 1,
-					controls: no,
-					color: white,
-					//enablejsapi: 1,
-					fs: 0,
-					iv_load_policy: 3,
-					//loop: 1,
-					modestbranding: 1,
-					showinfo: 0
-				},
-				events: {
-					'onReady': handlePlayerReady,
-					'onStateChange': handlePlayerStateChange,
-					'onPlaybackQualityChange': handlePlaybackQualityChange,
-					'onPlaybackRateChange': handlePlaybackRateChange,
-					'onError': handlePlayerError,
-					//'onApiChange': handlePlayerAPIChange
-				}
-			}
-		);
-
-		setPlayerSize( width, height );
-
-		overlay.onclick = function(){
-			if( isPlaying ) loadNextVideo();
+	static function handleMouseDown(e) {
+		if( !started || video.isPlaying ) {
+			overlay.style.opacity = '1';
+			started = true;
+			loadNextVideo();
 		}
-
-		document.body.addEventListener( 'dblclick', handleDoubleClick, false );
-
-		//window.requestAnimationFrame( update );
-		//trace(untyped player.c.contentDocument.body.);
-
-		/*
-		var audio = new js.html.audio.AudioContext();
-		var analyser = audio.createAnalyser();
-		analyser.fftSize = 256;
-
-		var source = audio.createMediaElementSource( cast player.c ); // this is where we hook up the <audio> element
-		source.connect(analyser);
-		analyser.connect( audio .destination);
-		var sampleAudioStream = function() {
-		};
-		var timer = new haxe.Timer(100);
-		timer.run = sampleAudioStream;
-		*/
 	}
 
 	static function handleContextMenu(e) {
 		e.preventDefault();
-		toggleFullscreen();
-	}
-
-	static function handleDoubleClick(e) {
-		e.preventDefault();
-		toggleFullscreen();
+		//toggleFullscreen();
 	}
 
 	static function handleWindowResize(e) {
-		setPlayerSize();
+		resize();
 	}
 
-    static function main() {
+	static function main() {
 
 		window.onload = function() {
 
 			var isMobile = om.System.isMobile();
+			var body = document.body;
 
-			if( isMobile ) {
-				document.body.textContent = 'NOPE, DESKTOP ONLY';
-				return;
-			}
-
-			title = cast document.getElementById( 'title' );
-			//title.style.opacity = '1';
-
-			overlay = cast document.getElementById( 'overlay' );
-
-			var req = new haxe.Http( PLAYLIST_URL );
-			req.onData = function(str){
-
-				var data : Array<Dynamic> = try Json.parse( str ).playlist catch(e:Dynamic){
-					document.body.innerHTML = e;
-					return;
+			/*
+			if( window.orientation != null ) {
+				if( window.orientation == 0 ) {
+					//portrait
+				} else {
+					//landscape
 				}
-				playlist = [];
-				for( track in data ) playlist.push( track );
-				playlist.shuffle();
+			}
+			*/
 
-				YouTube.init( handleYouTubeReady );
-			};
-			req.request();
+			YouTube.init( function(){
 
-			window.addEventListener( 'resize', handleWindowResize, false );
-			window.addEventListener( 'contextmenu', handleContextMenu, false );
+				title = cast document.getElementById( 'title' );
 
+				video = new VideoPlayer();
+				video.onEvent = handleVideoPlayerEvent;
+				body.appendChild( video.element );
 
+				overlay = document.createDivElement();
+				overlay.id = 'videoplayer-overlay';
+				body.appendChild( overlay );
 
-			//player.setAttribute( 'src', streamUrl );
+				var req = new haxe.Http( PLAYLIST_URL );
+				req.onData = function(str){
 
+					playlist = try Json.parse( str ).playlist catch(e:Dynamic) {
+						console.error(e);
+						//TODO
+						return;
+					}
 
+					om.util.ArrayUtil.shuffle( playlist );
+
+					video.init( function(){
+
+						var maxScreenSize = Math.max( window.screen.width, window.screen.height );
+						var bestPlaybackQuality = switch maxScreenSize {
+							case i if(i>1280): hd1080;
+							case i if(i>1024): hd720;
+							default: large;
+						}
+						trace( 'Set playback quality: '+bestPlaybackQuality );
+						video.setPlaybackQuality( bestPlaybackQuality );
+
+						resize();
+
+						if( !isMobile ) {
+							started = true;
+							video.load( playlist[0].id );
+							//video.loadPlaylist( 'PL0FskzBvijeFbxAOAje9D4wr9TQiG' );
+						}
+
+						window.addEventListener( 'resize', handleWindowResize, false );
+						window.addEventListener( 'contextmenu', handleContextMenu, false );
+						overlay.addEventListener( 'mousedown', handleMouseDown, false );
+					});
+				};
+				req.onError = function(e){
+					trace(e);
+				};
+				req.request();
+			});
 		}
-    }
+	}
 }
