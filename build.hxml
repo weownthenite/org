@@ -3,6 +3,10 @@
 -cp src
 -lib om.api
 -lib om.io
+-lib om.core
 -dce full
--debug
+
+#-debug
+--no-traces
+
 --macro wotn.Build.app()
