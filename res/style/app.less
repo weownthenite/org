@@ -1,0 +1,138 @@
+
+.vignette ( @offsetX, @offsetY, @blur, @color:rgba(0,0,0,0.5) ) {
+    box-shadow:
+        @offsetX @offsetY @blur @color inset,
+        -@offsetX -@offsetY @blur @color inset;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+@font-face {
+	font-family: Helvetica;
+	src:url('font/Helvetica Neue 65 Medium.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+@keyframes title_animation {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+}
+
+body {
+
+	overflow: hidden;
+	padding: 0;
+
+	font-family: 'Helvetica';
+
+	background: #000;
+	color: #fff;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+
+	user-select: none;
+	-webkit-user-select: none;
+
+	//cursor:
+}
+
+img {
+	border: 0;
+}
+
+#preload {
+
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+
+	z-index: 10000000;
+
+	pointer-events: none;
+}
+
+header {}
+
+main {
+    display: none;
+}
+
+footer {
+    display: none;
+}
+
+#video {
+
+	position: absolute;
+	width: 100%;
+	height: 100%;
+
+	z-index: 1;
+
+	object-fit: cover;
+
+	//display: none;
+
+    opacity: 0;
+	filter: grayscale(99%);
+
+    transition: opacity 2s;
+}
+
+h1 {
+
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+
+	z-index: 10;
+
+	display: table;
+	padding: 0;
+	margin: 0;
+	white-space: nowrap;
+
+	font-family: Helvetica;
+	font-size: 8vw;
+	letter-spacing: -0.2vw;
+
+	color: rgba(255,255,255,0.97);
+	//filter: grayscale(100%) invert(100%);
+	//mix-blend-mode: overlay;
+
+	//transition: opacity 1s;
+
+	pointer-events: none;
+
+	display: none;
+}
+
+#overlay {
+
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+
+	z-index: 10000;
+
+	//background: rgba(0,0,0,0.1);
+	//.vignette(12vw,10vh,20vw,rgba(0,0,0,0.8));
+
+	//transition: opacity 0.1s;
+
+	pointer-events: none;
+}
