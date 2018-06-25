@@ -1,2 +1,2 @@
 
-# \/\/[- ()\/\/|\| "|"|-|[- |\||"|"[- [:milky_way:](https://weownthenite.org) 🝯
+# [\/\/[- ()\/\/|\| "|"|-|[- |\||"|"[-](https://weownthenite.org)
