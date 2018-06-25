@@ -1,22 +1,28 @@
 
-.vignette ( @offsetX, @offsetY, @blur, @color:rgba(0,0,0,0.5) ) {
-    box-shadow:
-        @offsetX @offsetY @blur @color inset,
-        -@offsetX -@offsetY @blur @color inset;
+@color-0: #000;
+@color-a: #101010;
+@color-b: #f7f7f7;
+@color-c: #fff;
+
+@font-size: 14px;
+
+:root {
+  --color-0: @color-0;
+  --color-a: @color-a;
+  --color-b: @color-b;
+  --color-c: @color-c;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-@font-face {
-	font-family: Helvetica;
-	src:url('font/Helvetica Neue 65 Medium.ttf') format('truetype');
-	font-weight: normal;
-	font-style: normal;
-}
+//@import "om/normalize";
+@import "normalize";
+@import "fonts";
+@import "scrollbar";
 
 ////////////////////////////////////////////////////////////////////////////////
 
-@keyframes title_animation {
+@keyframes title_intro {
 	from { opacity: 0; }
 	to { opacity: 1; }
 }
@@ -34,107 +40,100 @@ body {
 	overflow: hidden;
 	padding: 0;
 
-	font-family: 'Helvetica';
+	font-family: 'FontRegular';
+	font-size: @font-size;
 
-	background: #000;
-	color: #fff;
-	-webkit-tap-highlight-color: rgba(0,0,0,0);
+    background-color: var(--color-0);
+    color: var(--color-b);
+    fill: var(--color-0);
+	-webkit-tap-highlight-color: var(--color-c);
 
 	user-select: none;
 	-webkit-user-select: none;
+}
 
-	//cursor:
+:any-link {
+    color: var(--color-b);
+}
+
+a {
+    border: none;
+    text-decoration: none;
+    color: var(--color-b);
+    &:focus {
+        color: var(--color-c);
+    }
+    &:hover {
+        color: var(--color-c);
+    }
+}
+
+h1, h2, h3, h4 {
+    font-family: 'FontTile';
+    margin: 0;
+    padding: 0;
 }
 
 img {
 	border: 0;
 }
 
-#preload {
+////////////////////////////////////////////////////////////////////////////////
 
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%,-50%);
-
-	z-index: 10000000;
-
-	pointer-events: none;
+header {
+    display: none;
 }
 
-header {}
-
-main {
+nav {
     display: none;
+}
+
+we-own-the-nite {
+
+    h1.title {
+        display: none;
+        position: fixed;
+    	left: 50%;
+    	top: 50%;
+    	transform: translate(-50%,-50%);
+        white-space: nowrap;
+    	font-size: 8vw;
+    	font-size: 8em;
+    	letter-spacing: -0.2vw;
+        font-style: italic;
+    	color: var(--color-b);
+        pointer-events: none;
+        animation: title_intro 1s;
+        z-index: 10;
+    }
+
+    video.background {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        filter: grayscale(99%);
+        transition: opacity 2s;
+        pointer-events: none;
+        z-index: 1;
+    }
 }
 
 footer {
-    display: none;
+    position: fixed;
+    bottom: 2px;
+    left: 5px;
+    padding: 4px;
+	z-index: 100000;
+    user-select: none;
+    -webkit-user-drag: none;
+    transition: transform 0.2s, opacity 0.2s;
+    opacity: 0.7;
+    &:hover {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+    a {
+    }
 }
-
-video {
-
-	position: absolute;
-	width: 100%;
-	height: 100%;
-
-	z-index: 1;
-
-	object-fit: cover;
-
-	//display: none;
-
-    opacity: 0;
-	filter: grayscale(99%);
-
-    transition: opacity 2s;
-}
-
-h1 {
-
-	position: fixed;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%,-50%);
-
-	z-index: 10;
-
-	display: table;
-	padding: 0;
-	margin: 0;
-	white-space: nowrap;
-
-	font-family: Helvetica;
-	font-size: 8vw;
-	letter-spacing: -0.2vw;
-
-	color: rgba(255,255,255,0.97);
-	//filter: grayscale(100%) invert(100%);
-	//mix-blend-mode: overlay;
-
-	//transition: opacity 1s;
-
-	pointer-events: none;
-
-	display: none;
-}
-
-/*
-#overlay {
-
-	position: fixed;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-
-	z-index: 10000;
-
-	//background: rgba(0,0,0,0.1);
-	//.vignette(12vw,10vh,20vw,rgba(0,0,0,0.8));
-
-	//transition: opacity 0.1s;
-
-	pointer-events: none;
-}
-*/
