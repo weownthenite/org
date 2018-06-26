@@ -23,6 +23,8 @@ class App {
 			video.muted = true;
 			video.oncanplaythrough = e -> {
 				//video.style.display = 'block';
+				video.oncanplaythrough = null;
+				video.currentTime = Math.random()*15;
 				video.style.opacity = '1';
 				video.play();
 			}
@@ -33,10 +35,10 @@ class App {
 			});
 
 			document.body.onblur = function(e){
-				footer.style.opacity = '0';
+				//footer.style.opacity = '0';
 			}
 			document.body.onfocus = function(e){
-				footer.style.opacity = '0.7';
+				//footer.style.opacity = '0.7';
 			}
 
 			/*

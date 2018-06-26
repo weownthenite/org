@@ -15,16 +15,16 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-//@import "om/normalize";
 @import "normalize";
 @import "fonts";
 @import "scrollbar";
+//@import "icons";
 
 ////////////////////////////////////////////////////////////////////////////////
 
 @keyframes title_intro {
 	from { opacity: 0; }
-	to { opacity: 1; }
+	to { opacity: 0.95; }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -98,13 +98,12 @@ we-own-the-nite {
     	transform: translate(-50%,-50%);
         white-space: nowrap;
     	font-size: 8vw;
-    	font-size: 8em;
     	letter-spacing: -0.2vw;
         font-style: italic;
     	color: var(--color-b);
         pointer-events: none;
-        animation: title_intro 1s;
         z-index: 10;
+        animation: title_intro 1s;
     }
 
     video.background {
@@ -122,18 +121,20 @@ we-own-the-nite {
 
 footer {
     position: fixed;
-    bottom: 2px;
-    left: 5px;
+    top: 5px;
+    left: 6px;
     padding: 4px;
 	z-index: 100000;
     user-select: none;
     -webkit-user-drag: none;
-    transition: transform 0.2s, opacity 0.2s;
-    opacity: 0.7;
-    &:hover {
-        opacity: 1;
-        transform: scale(1.1);
-    }
+    font-size: 20px;
     a {
+        margin: 4px 4px 4px 4px;
+        transition: transform 0.1s, opacity 0.1s;
+        opacity: 0.7;
+        &:hover {
+            opacity: 1;
+            transform: scale(1.2);
+        }
     }
 }
