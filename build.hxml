@@ -1,14 +1,8 @@
--js bin/app.js
+-js bin/script/app.js
 -main weownthenite.App
 -cp src
 -lib om.core
 -dce full
 -debug
 #--no-traces
--cmd cp -ru res/font/ bin/
--cmd cp -ru res/html/index.html bin/
--cmd cp -ru res/icon/ bin/
--cmd cp -ru res/image/ bin/
--cmd cp -ru res/video/ bin/
--cmd cp -u res/icon/favicon.ico bin/
--cmd lessc res/style/app.less bin/app.css --no-color --include-path=/home/tong/dev/lib/om.style/res/style
+-cmd lessc res/style/app.less bin/style/app.css --no-color --include-path=/home/tong/dev/lib/om.style/res/style

@@ -1,4 +1,28 @@
 
+//@font-path: "../ffffffffffont";
+
+@font-face {
+    font-family: 'FontRegular';
+    src:
+        //local('Helvetica Neue 55'),
+        url('@{font-path}/helvetica-55.woff2') format('woff2'),
+        url('@{font-path}/helvetica-55.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'FontTile';
+    src:
+        //local('Helvetica Neue 65'),
+        url('@{font-path}/helvetica-65.woff2') format('woff2'),
+        url('@{font-path}/helvetica-65.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/*
 @font-face {
 	font-family: 'FontRegular';
 	src: url('font/helvetica-55.ttf') format('truetype');
@@ -11,6 +35,8 @@
 	font-weight: normal;
 	font-style: normal;
 }
+*/
+
 /*
 @font-face {
 	font-family: 'FontTile';
