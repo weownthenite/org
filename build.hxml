@@ -1,8 +1,7 @@
--js bin/script/app.js
+-js bin/app.js
 -main weownthenite.App
 -cp src
 -lib om.core
 -dce full
 -debug
-#--no-traces
--cmd lessc res/style/app.less bin/style/app.css --no-color --include-path=/home/tong/dev/lib/om.style/res/style
+-cmd lessc res/style/index.less bin/app.css --no-color --include-path=/home/tong/dev/lib/enron/src
