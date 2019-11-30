@@ -2,3 +2,4 @@ _*
 bin/video/
 bin/app.css
 bin/app.js*
+.vscode
