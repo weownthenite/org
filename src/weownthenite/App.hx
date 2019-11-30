@@ -10,14 +10,22 @@ using om.ArrayTools;
 class App {
 
 	static var VIDEOS = weownthenite.Build.getVideoFiles();
-	static var videoIndex = 0;
 	static var video : VideoElement;
+	static var videoIndex = 0;
+
 	static var words = ['we','own','the','nite'];
 	static var wordIndex = 0;
 
 	static function nextVideo() {
+
 		if( ++videoIndex == VIDEOS.length ) videoIndex = 0;
 		video.src = 'video/'+VIDEOS[videoIndex];
+
+		// Preload next video
+		var nextIndex = videoIndex + 1;
+		if( nextIndex == VIDEOS.length ) nextIndex = 0;
+		var preloadVideo = document.createVideoElement();
+		preloadVideo.src = 'video/'+VIDEOS[nextIndex];
 	}
 
 	static function main() {
@@ -62,45 +70,15 @@ class App {
 				e.preventDefault();
 				return false;
 			}
-		}
-
-		/*
-		window.onload = function() {
-
-			var container = document.querySelector( 'we-own-the-nite' );
-			var title = container.querySelector( 'h1.title' );
-			var footer = document.body.querySelector( 'footer' );
-			var video = container.querySelector( 'video' );
-
-			document.fonts.ready.then( function(_){
-				title.style.display = 'block';
-			});
-			document.body.onblur = function(e){
-				//footer.style.opacity = '0';
-			}
-			document.body.onfocus = function(e){
-				//footer.style.opacity = '0.7';
-			}
-
-			window.oncontextmenu = e -> {
-				e.preventDefault();
-			}
-
-			video.oncanplaythrough = e -> {
-				video.oncanplaythrough = null;
-				video.style.opacity = '1';
-			}
 
 			/*
 			var links = document.querySelectorAll('a');
 			for( link in links ) {
 				//console.debug( link );
 			}
-			* /
-
+			*/
 
 		}
-		*/
 	}
 
 }
